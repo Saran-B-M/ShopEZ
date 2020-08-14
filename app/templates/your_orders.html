@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if not ordered_items %}
+        <h1>You have no active orders</h1>
+    {% else %}
+    <h1 class="pt-4 pl-4">Your Orders</h1>
+    {% for item in ordered_items %}
+    <div class="row p-4">
+        <div class="col-12">
+            <div class="card text-center">
+                <h5 class="card-header">
+                    <div class="row">
+                        <div class="col-lg-6">    
+                            <p>Total Price:</p>
+                            <p>{{ Order.query.filter(Order.product_id==item.id).first().amount_to_be_paid }}</p>
+                        </div>
+                        <div class="col-lg-6">
+                            <p>Address:</p>
+                            <p>{{ current_user.address }}</p>
+                        </div>
+                    </div>
+                </h5>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <img src="data:image/jpg;charset=utf-8;base64, {{ item.product_image }}" class="card-img" alt="...">
+                                  </div>
+                                  <div class="col-lg-4">
+                                    <div class="card-body">
+                                      <h5 class="card-title">{{ item.product_name }}</h5>
+                                      <p>Quantity: {{ Order.query.filter(Order.product_id==item.id).first().get_quantity() }}</p>
+                                        <p>
+                                            <a href="{{ url_for('cancel_order', product_id=item.id) }}" class="btn btn-warning">
+                                                Cancel Order
+                                            </a>
+                                        </p>
+                                    </div>
+                                  </div>
+                            </div>   
+                        </div>
+                        </div>
+                      
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% endif %}
+    </div>
+    
+{% endblock content %}

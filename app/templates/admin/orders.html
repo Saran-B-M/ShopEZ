@@ -1,0 +1,42 @@
+{% extends 'admin/master.html' %}
+
+{% block head_css %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/css/styles.css')}}">
+{% endblock head_css %}
+
+{% block body %}
+    {{ super() }}
+    <h1>Orders</h1>
+    <table class="table table-borderless">
+        <thead>
+          <tr>
+            <th scope="col"> </th>
+            <th scope="col">Product name</th>
+            <th scope="col">User email</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Ordered On</th>
+            <th scope="col">Shipping address</th>
+
+          </tr>
+        </thead>
+        <tbody>
+        {% for order in orders %}
+        {% if order.ordered %}
+            <tr>
+                <th scope="row">{{ loop.index }}</th>
+                <td>{{ Product.query.filter(Product.id==order.product_id).first().product_name }}</td>
+                <td>{{ User.query.filter(User.id==order.user_id).first().email }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>{{ order.ordered_date }}</td>
+                <td>{{ User.query.filter(User.id==order.user_id).first().address + ',\n'
+                        + User.query.filter(User.id==order.user_id).first().city + ',\n'
+                        + User.query.filter(User.id==order.user_id).first().state
+                    }}
+                    </td> 
+            </tr> 
+        {% endif %}
+        {% endfor %}
+        </tbody>
+      </table>
+{% endblock body %}

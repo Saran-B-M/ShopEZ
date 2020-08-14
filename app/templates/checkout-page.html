@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<main class="mt-5 pt-1">
+  <div class="container wow fadeIn">
+
+    <!-- Heading -->
+    <h2 class="my-5 h2 text-center">Review Your Order</h2>
+
+    <!--Grid row-->
+    <div class="row">
+
+      <!--Grid column-->
+      <div class="col-md-8 mb-4">
+        <div class="row">
+          <div class="col-lg-6 pt-2">
+            <div class="card">
+              <div class="card-header">
+                Shipping Address
+              </div>
+              <div class="card-body">
+                <p class="card-text">{{ current_user.address }}</p>
+                <p class="card-text">{{ current_user.city }}</p>
+                <p class="card-text">{{ current_user.state }}</p>
+                <p class="card-text">{{ current_user.pincode }}</p>
+                
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-6 pt-2">
+            <div class="card">
+              <div class="card-header">
+                Payment Method
+              </div>
+              <div class="card-body">
+                <p class="card-text">Cash On Delivery</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h3 class="pt-3">Orders:</h3>
+           {% for item in cart_items %}
+      <div class="row pt-2">
+        <div class="col-12">
+          <div class="card mb-3" >
+            <div class="row no-gutters">
+              <div class="col-lg-2">
+                <img src="data:image/jpg;charset=utf-8;base64, {{ item.product_image }}" class="card-img" alt="...">
+              </div>
+              <div class="col-md-10 text-right">
+                <div class="card-body">
+                  <h5 class="card-title">{{ item.product_name }}</h5>
+                  <p class="card-text">
+                      <p class="lead">Price:
+                    <span class="mr-1">
+                      <del>{{ item.price }}</del>
+                    </span>
+                    <span>{{ item.discount_price }}</span>
+                  </p>
+                </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      
+      
+
+      </div>
+     
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-4 mb-4">
+
+        <!-- Heading -->
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-muted">Place Order</span>
+          
+        </h4>
+
+        <p><b>Order Total: {{ total_price }}</b></p>
+        <form action="" method="post">
+          {{ form.hidden_tag() }}
+          {{ form.submit(value='Confirm Order', class="btn btn-primary") }}
+        </form>
+
+      </div>
+      <!--Grid column-->
+
+    </div>
+    <!--Grid row-->
+
+  </div>
+</main>
+{% endblock content %}
+

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>
+        {% if title %}
+            {{ title }}
+        {% else %}
+            ShopEZ
+        {% endif %}
+    </title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css">
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="{{ url_for('static', filename='css/mdb.min.css') }}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+</head>
+<body class="d-flex flex-column min-vh-100">
+    
+        <nav id="navigationbar" class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
+            <a class="navbar-brand" href="{{ url_for('home') }}">ShopEZ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Search by Category
+                    </a>
+                    <div class="dropdown-menu text-center" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{{ url_for('show_by_category', category='shirt') }}">Shirts</a>
+                      <a class="dropdown-item" href="{{ url_for('show_by_category', category='pant') }}">Pants</a>
+                      <a class="dropdown-item" href="{{ url_for('show_by_category', category='shoe') }}">Shoes</a>
+                    </div>
+                  </li>
+              </ul>
+              <ul class="navbar-nav ml-auto">
+                
+                {% if current_user.is_anonymous %}
+                <span class="navbar-text">
+                  Hello!
+                </span>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('login') }}">LogIn/SignUp</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <span class="navbar-text">
+                    Hello, {{ current_user.username }}!
+                  </span>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('cart') }}">Cart</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url_for('orders') }}">Your Orders</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+              </li>
+              {% endif %}
+              </ul>
+            </div>
+          </nav>
+    
+    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                {% for message in messages %}
+                <div class="alert alert-success" role="alert">{{ message }}</div>
+                {% endfor %}
+        {% endif %}
+        {% endwith %}
+    {% block content %}{% endblock %}
+    
+
+    
+  <!--Footer-->
+  <footer class="page-footer text-center font-small mt-auto wow fadeIn">
+
+    <!-- Social icons -->
+    <div class="pb-4">
+      <a href="#">
+        <i class="fab fa-facebook-f mr-3"></i>
+      </a>
+
+      <a href="#">
+        <i class="fab fa-twitter mr-3"></i>
+      </a>
+      <a href="#">
+        <i class="fab fa-instagram mr-3"></i>
+      </a>
+
+      
+    </div>
+    <!-- Social icons -->
+
+  </footer>
+  <!--/.Footer-->
+    <!-- SCRIPTS -->
+  <!-- JQuery -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.4.1.min.js') }}"></script>
+  <!-- Bootstrap tooltips -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+  <!-- Bootstrap core JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+  <!-- MDB core JavaScript -->
+  <script type="text/javascript" src="{{ url_for('static', filename='js/mdb.min.js') }}"></script>
+  <!-- Initializations -->
+  <script type="text/javascript">
+    new WOW().init();
+    moment.include_moment()
+  </script>
+</body>
+</html>
