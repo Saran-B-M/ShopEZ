@@ -9,8 +9,8 @@ class Config(object):
     MAIL_SERVER='smtp.googlemail.com'
     MAIL_PORT=587
     MAIL_USE_TLS=1
-    MAIL_USERNAME='saranhog@gmail.com'
-    MAIL_PASSWORD='nirupama'
+    MAIL_USERNAME='<your mail here>'
+    MAIL_PASSWORD='<your password here>'
     PRODUCTS_PER_PAGE = 10
 
 
